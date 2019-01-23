@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container card" style="margin-top:20px; width:600px">
+    <div class="card-body">
+<p>Registration:</p>
+<div>
+    <p style="color:red" th:text="${err}" th:unless="${err == null}"></p>
+</div>
+<form th:action="@{/registration}" th:object="${user}" method="post">
+    <div class="form-group">
+        <label for="login"> Login: </label>
+        <input class="form-control" id="login" type="text" th:field="${user.login}" name="username"/>
+    </div>
+    <div class="form-group">
+        <label for="password"> Password: </label>
+        <div class="input-group">
+            <input class="form-control" id="password" type="password" th:field="${user.password}" name="password"/>
+            <div class="input-group-append">
+                <span class="input-group-text" id="passwordStrength">Empty</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <input class="btn btn-primary" type="submit" value="Register"/>
+        <a href="/login"><input class="btn btn-success" type="button" value="Login"/></a>
+    </div>
+</form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $("#password").on('input', function() {
+        $.get("passStrength", {'password': $("#password").val()}, function(data) {
+            var text;
+            switch(data) {
+                case "0":
+                    text = "Empty";
+                    break;
+                case "1":
+                    text = "Short";
+                    break;
+                case "2":
+                    text = "Need small, capital, digits";
+                    break;
+                case "3":
+                    text = "Need special symbols";
+                    break;
+                case "4":
+                    text = "This password is leet";
+                    break;
+            }
+            $("#passwordStrength").html(text);
+        })
+    });
+</script>
+</body>
+</html>

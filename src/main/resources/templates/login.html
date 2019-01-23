@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container card" style="margin-top:20px; width:600px">
+        <div class="card-body">
+            <p>Login:</p>
+            <div style="color:red" th:if="${param.error}">
+                Invalid username and password.
+            </div>
+            <div style="color:red" th:if="${param.logout}">
+                You have been logged out.
+            </div>
+
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="login"> Login: </label>
+                    <input class="form-control" id="login" type="text" name="username"/>
+                </div>
+                <div class="form-group">
+                    <label for="password"> Password: </label>
+                    <input class="form-control" id="password" type="password" name="password"/>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Sign In"/>
+                    <a href="/registration"><input class="btn btn-success" type="button" value="Registration"/></a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
